@@ -1,0 +1,3 @@
+
+ meteor npm install --save jsonld-request
+meteor npm install --save canvas

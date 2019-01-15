@@ -1,0 +1,86 @@
+Script started on jue 30 mar 2017 16:29:38 ECT
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ exitcd /home/user/meteor/sparql-fedquest
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ cd /home/user/meteor/sparql-fedquestexit[Kcd /home/user/meteor/sparql-fedquestexit[Ksudo dpkg -i virtualbox-5.1_5.1.18-1140022-Ubuntu-xenial_amd64.deb [A]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ cd Downloads/[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo dpkg -i virtualbox-5.1_5.1.18-1140022-Ubuntu-xenial_amd64.deb [A]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ cd Downloads/[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cexit[Kmeteor cd meteor/sparql-fedquestmeteor [K[3Pexit[K[K[K[Kn[Kgedit start.sh 
+^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ gedit start.sh cd /home/user/meteor/sparql-fedquest[21Pgedit start.sh [K./start.sh 
+'/home/user/meteor/sparql-fedquest/.meteor' exists, but '/home/user/meteor/sparql-fedquest/.meteor/meteor' is not executable.
+
+Remove it and try again.
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ ./start.sh [K./start.sh [4@gedit [C[C[C[C[C[C[C[C[C
+^[[A^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ gedit start.sh [4P./[C[C[C[C[C[C[C[C[C
+user, this is your first time using Meteor!
+Installing a Meteor distribution in your home directory.
+Downloading Meteor distribution
+                                                                           0,1%                                                                           0,3%                                                                           0,8%                                                                           1,0%#                                                                          2,0%#                                                                          2,5%##                                                                         3,1%##                                                                         3,6%###                                                                        4,2%###                                                                        4,7%###                                                                        5,3%####                                                                       5,9%####                                                                       6,5%#####                                                                      7,0%#####                                                                      7,6%#####                                                                      8,1%######                                                                     8,8%######                                                                     9,4%#######                                                                   10,0%#######                                                                   10,7%########                                                                  11,3%########                                                                  11,9%#########                                                                 12,6%#########                                                                 13,3%##########                                                                13,9%##########                                                                14,6%###########                                                               15,3%###########                                                               15,9%###########                                                               16,6%############                                                              17,3%############                                                              18,0%#############                                                             18,7%#############                                                             19,4%##############                                                            20,1%##############                                                            20,8%###############                                                           21,5%################                                                          22,2%################                                                          23,0%################                                                          23,6%^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ ./start.sh [4@gedit [C[C[C[C[C[C[C[C[C
+^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ gedit start.sh 
+^X^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ gedit start.sh [4P./[C[C[C[C[C[C[C[C[C
+'/home/user/meteor/sparql-fedquest//.meteor' exists, but '/home/user/meteor/sparql-fedquest//.meteor/meteor' is not executable.
+
+Remove it and try again.
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ ./start.sh [4@gedit [C[C[C[C[C[C[C[C[C
+^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ gedit start.sh [4P./[C[C[C[C[C[C[C[C[C
+'/home/user/meteor/sparql-fedquest/.meteor' exists, but '/home/user/meteor/sparql-fedquest/.meteor/meteor' is not executable.
+
+Remove it and try again.
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ ./start.sh [4@gedit [C[C[C[C[C[C[C[C[C
+^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ gedit start.sh 
+^C
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ gedit start.sh [4P./[C[C[C[C[C[C[C[C[C
+                                             -                                                                                           -                                              ^C   Preparing project                         -                                                 Preparing project                         -                                                 Preparing project                         -                                              [[[[[ ~/meteor/sparql-fedquest ]]]]]
+
+                                                 Preparing project                         -                                              => Started proxy.
+                                                 Preparing project                         -                                                 Scanning local packages                   -                                                 Scanning local packages                   -                                                 Scanning local packages                   -^C                                                 Selecting p]]]]
+
+                                                 Preparing project                         -                                              => Started proxy.
+                                                 Preparing project                         -                                                 Scanning local packages                   -                                                 Scanning local packages                   -                                                 Scanning local packages                   -^C                                                 Selecting package versions                \                                                 Selecting package versions                \                                              
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ cd ..
+]0;user@machine2: ~/meteor[01;32muser@machine2[00m:[01;34m~/meteor[00m$ pwd
+/home/user/meteor
+]0;user@machine2: ~/meteor[01;32muser@machine2[00m:[01;34m~/meteor[00m$ ./start.sh 
+./start.sh: line 6: /home/user/meteor/sparql-fedquest/meteor: No such file or directory
+]0;user@machine2: ~/meteor[01;32muser@machine2[00m:[01;34m~/meteor[00m$ ./start.sh 
+                                             -                                                                                           -                                                 Preparing project                         -                                                 Preparing project                         -                                                 Preparing project                         -                                              [[[[[ ~/meteor/sparql-fedquest ]]]]]
+
+                                                 Preparing project                         -                                              => Started proxy.
+                                                 Preparing project                         -                                                 Selecting package versions                \                                                 Selecting package versions                \                                                 Selecting package versions                \                                                 Selecting package versions                \                                                 Selecting package versions                |                                                 Selecting package versions                |                                                 Selecting package versions                |                                                 Selecting package versions                |                                                 Selecting package versions                /                                                 Selecting package versions                /                                                 Selecting package versions                /                                                 Selecting package versions                -                                                 Selecting package versions                -                                                 Selecting package versions                -                                                 Selecting package versions                -                                                 Selecting package versions                \^C                                              
+]0;user@machine2: ~/meteor[01;32muser@machine2[00m:[01;34m~/meteor[00m$ exit
+exit
+Script done, file is typescript
+'/home/user/meteor/sparql-fedquest/.meteor' exists, but '/home/user/meteor/sparql-fedquest/.meteor/meteor' is not executable.
+
+Remove it and try again.
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ exit
+exit
+
+Script done on jue 30 mar 2017 17:12:49 ECT
+                                                 Selectackage versions                /                                                 Selecting package versions                /                                                 Selecting package versions                /                                                 Selecting package versions                -                                                 Selecting package versions                -                                                 Selecting package versions                -                                                 Selecting package versions                -                                                 Selecting package versions                \^C                                              
+]0;user@machine2: ~/meteor[01;32muser@machine2[00m:[01;34m~/meteor[00m$ exit
+exit
+Script done, file is typescript
+'/home/user/meteor/sparql-fedquest/.meteor' exists, but '/home/user/meteor/sparql-fedquest/.meteor/meteor' is not executable.
+
+Remove it and try again.
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ exit
+exit
+Script done, file is typescript
+'/home/user/meteor/sparql-fedquest/.meteor' exists, but '/home/user/meteor/sparql-fedquest/.meteor/meteor' is not executable.
+
+Remove it and try again.
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ exit
+exit
+Script done, file is typescript
+'/home/user/meteor/sparql-fedquest/.meteor' exists, but '/home/user/meteor/sparql-fedquest/.meteor/meteor' is not executable.
+
+Remove it and try again.
+]0;user@machine2: ~/meteor/sparql-fedquest[01;32muser@machine2[00m:[01;34m~/meteor/sparql-fedquest[00m$ exit
+exit
+
+Script done on jue 30 mar 2017 17:12:52 ECT

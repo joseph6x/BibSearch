@@ -1,0 +1,25 @@
+<template name="samples">
+	<div class="container-fluid queryspanel" >
+	<div  class="generatedquery">
+	<div class="listquerys">  <h1><p style="margin-bottom: 30px;" > {{lang "template-title"}} </p></h1></div>
+	    <!--<table class="table table-bordered table-striped table-hover " sytle="overflow: scroll">
+	    <thead>
+	        <tr>
+	            <th>Title</th>
+	            <th>Description</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+
+	    	{{#each queriesAvailable}}
+	        <tr>
+	            <td><a href="/dashboard/{{_id}}">{{title}}</a></td>
+	            <td>{{description}}</td>
+	        </tr>
+	        {{/each}}
+	    </tbody>
+		</table-->
+		{{> reactiveTable collection=queriesAvailable settings=settings }}
+	</div>
+        </div>    
+</template>
