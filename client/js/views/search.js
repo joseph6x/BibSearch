@@ -510,141 +510,60 @@ this.SearchView = Backbone.View.extend({
             var SubQN = 0;
             var sources = [];
 
-
-            for (var oneQuery = 0; oneQuery < FromList.length; oneQuery++) {
-                var EndpointLocal = FromList[oneQuery].attributes['data-base'] ? FromList[oneQuery].attributes['data-base'].value : false;
-                var Service = FromList[oneQuery].attributes['data-endpoint'].value;
-                var ServiceName = FromList[oneQuery].attributes['data-name'].value;
-                var ServiceTypeServer = FromList[oneQuery].attributes['data-typeserver'].value;
-                var ServiceGrapUri = FromList[oneQuery].attributes['data-graphuri'].value;
-
-                typeServer=ServiceTypeServer;
-
-                for (var oneRes = 0; oneRes < ResqLis.length; oneRes++) {
+            
+            var ClassLs = '';
+            var ClassIndxLs = '';
+            for (var oneRes = 0; oneRes < ResqLis.length; oneRes++) {
+                    ClassLs += ' (<' + ResqLis[oneRes].resourceClass + '>  <' + ResqLis[oneRes].labelProperty + '>  )' ;
                     for (var oneProp = 0; oneProp < ResqLis[oneRes].indexProperties.length; oneProp++) {
-                        SubQN++;
-                        if (SubQN == 1) {
-                            Query += '{\n';
-                        } else {
-                            Query += 'union {\n';
-                        }
-                        if (!EndpointLocal) {
-                            Query += 'service <' + Service + '> {\n';
-                        }
-                        var Class_ = ResqLis[oneRes].resourceClass;
-                        var Property_ = ResqLis[oneRes].indexProperties[oneProp];
-                        var PropertyName_ = ResqLis[oneRes].indexPropertiesName[oneProp];
-                        var Label_ = ResqLis[oneRes].labelProperty;
-
-                        switch (typeServer) {
-                          case 'Apache Marmotta':
-                                  {
-                                    Query += 'select  (1 as  ?Score1) (\'' + ServiceName + '\' AS ?Endpoint) ?EntityURI (<' + Class_ + '> AS ?EntityClass)  ';
-                                    Query += '?EntityLabel (<' + Property_ + '> AS ?Property) (\'' + PropertyName_ + '\' AS ?PropertyLabel) ?PropertyValue   ';
-                                    Query += '?Year ?Lang  (<'+Class_+'> as ?Type) (1 as ?Score )  ?Image  \n';
-                                    Query += '{  ';//graph <'+ServiceGrapUri+'> {\n ' ;
-                                    Query += '?EntityURI <'+Property_+'> ?PropertyValue .';
-                                    Query += '?EntityURI <' + Label_ + '> ?EntityLabel .';
-                                    Query += "optional { ?EntityURI <http://purl.org/dc/terms/language> ?Lang .   } \n";
-                                    Query += "optional { ?EntityURI <http://purl.org/dc/terms/issued> ?Year .  }\n";
-                                    Query += "optional { ?EntityURI <http://purl.org/ontology/bibo/Image> ?Image .  }\n";
-                                    //Query += "optional { ?EntityURI  ?x ?creator . }\n";
-                                    //Query += "optional { ?creator <http://xmlns.com/foaf/0.1/name> ?name .}\n";
-                                    Query += ' ?EntityURI a <' + Class_  + '>  \n';
-                                    var auxFullText='FILTER( mm:fulltext-search(str(?PropertyValue), "'+TextSearch+'", "es") )';
-                                    Query += auxFullText.replace(/AND/g, "&");
-;
-                                    Query += '} limit 50 \n';
-
-                                  }
-
-                            break;
-                          case 'fuseki':
-                                  {
-                                   Query += 'select   ?Score1 (\'' + ServiceName + '\' AS ?Endpoint) ?EntityURI (IRI(<' + Class_ + '>) AS ?EntityClass) ?EntityLabel (IRI(<' + Property_ + '>) AS ?Property) (\'' + PropertyName_ + '\' AS ?PropertyLabel) ?PropertyValue  (max(?Year1)as ?Year) (max(?Lang1) as ?Lang) (max(?Type1) as ?Type)  ((?Score1*if(count(?Score2)>0,2,1)*if(count(?Score3)>0,2,1)*if(count(?Score4)>0,' + ty + ',1)) as ?Score )   ?Image  ?organization_des \n'; //(group_concat(?Sub1; separator = "#|#") as ?Sub)
-                                   Query += '{\n';
-                                   Query += '(?EntityURI ?Score1 ?PropertyValue) text:query (<' + Property_ + '> \'(' + TextSearch + ')\' ' + ResultLimitSubQ + ') .\n?EntityURI <' + Label_ + '> ?EntityLabel .\n';
-                                   Query += 'filter(str(?PropertyValue)!=\'\') .\n';
-                                   Query += "optional { (?EntityURI ?Score2 ?PropertyValue2) text:query (<http://purl.org/dc/terms/subject> '(" + int + ")' ) .  filter(str(?EntityURI)!=\'\') .} \n"
-                                   //Query += "optional { ?EntityURI <http://purl.org/dc/terms/subject> ?Sub1 .  } \n"
-                                   Query += "optional { ?EntityURI <http://purl.org/dc/terms/language> ?Lang1 .   } \n"
-                                   Query += "optional { ?EntityURI <http://purl.org/dc/terms/language> ?Lang2 .  filter(str(?Lang2) = '" + idi + "'). bind( 1 as ?Score3  ).  } \n"
-                                   Query += "optional { ?EntityURI <http://purl.org/dc/terms/issued> ?y2. bind( strbefore( ?y2, '-' ) as ?y3 ).  bind( strafter( ?y2, ' ' ) as ?y4 ). bind( if (str(?y3)='' && str(?y4)='',?y2,if(str(?y3)='',?y4,?y3)) as ?Year1 ).  }\n";
-                                   Query += "optional { ?EntityURI <http://purl.org/ontology/bibo/Image> ?Image .  }\n";
-                                   Query += "optional { ?EntityURI  <http://purl.org/dc/terms/provenance> ?provenance .\n";
-                                   Query += " ?provenance <http://purl.org/dc/terms/description> ?organization_des .}\n";
-                                   Query += "optional { ?EntityURI a ?Type1 . filter (str(?Type1) != 'http://xmlns.com/foaf/0.1/Agent' &&  str(?Type1) != 'http://purl.org/ontology/bibo/Document') .   } \n"
-                                   Query += "optional { {?EntityURI a <http://purl.org/ontology/bibo/Article> .  bind(1 as ?Score4  ). } union { ?EntityURI a <http://purl.org/net/nknouf/ns/bibtex#Mastersthesis> .  bind(1 as ?Score4  ). }  } \n"
-                                //   Query += ' { EntityURI a <' + Class_ + '>} \n'
-                                   Query += '} group by ?Endpoint ?EntityURI ?EntityClass ?EntityLabel ?Property ?PropertyLabel ?PropertyValue ?Score1 ?Image  ?organization_des limit 100 \n';
-
-                                  }
-
-                            break;
-
-                          default:
-                                  {
-                                   Query += 'select  distinct ?Score1 (\'' + ServiceName + '\' AS ?Endpoint) ';
-                                   Query += '?EntityURI (IRI(<' + Class_ + '>) AS ?EntityClass) ';
-                                   Query += '?EntityLabel (IRI(<' + Property_ + '>) AS ?Property) ';
-                                   Query += '(\'' + PropertyName_ + '\' AS ?PropertyLabel) ?PropertyValue  ';
-                                   Query += '(?Year1 as ?Year) (?Lang1 as ?Lang) (?Type1 as ?Type)  ';
-                                   Query += '(1 as ?Score )  ';
-                                   Query += ' ?Image  ?organization_des ?nameCreator ?issued ?isbn ?languaje\n'; //(group_concat(?Sub1; separator = "#|#") as ?Sub)'
-                                   Query += '{\n';
-                                   Query += '(?EntityURI ?Score1 ?PropertyValue) text:query (<' + Property_ + '> \'(' + TextSearch + ')\' ' + ResultLimitSubQ + ') .\n?EntityURI <' + Label_ + '> ?EntityLabel .\n';
-                                   Query += 'filter(str(?PropertyValue)!=\'\') .\n';
-                                   Query += "optional { (?EntityURI ?Score2 ?PropertyValue2) text:query (<http://purl.org/dc/terms/subject> '(" + int + ")' ) . ";
-                                   Query += " filter(str(?EntityURI)!=\'\') .} \n";
-                                   //Query += "optional { ?EntityURI <http://purl.org/dc/terms/subject> ?Sub1 .  } \n"
-                                   Query += "optional { ?EntityURI <http://purl.org/dc/terms/language> ?Lang1 .   } \n";
-                                   //Query += "optional { ?EntityURI <http://purl.org/dc/terms/language> ?Lang2 .  filter(str(?Lang2) = '" + idi + "'). bind( 1 as ?Score3  ).  } \n"
-                                   Query += "optional { ?EntityURI <http://purl.org/dc/terms/issued>  ?Year1 .}";//?y2. bind( strbefore( ?y2, '-' ) as ?y3 ).
-                                   //Query += " bind( strafter( ?y2, ' ' ) as ?y4 ). bind( if (str(?y3)='' && str(?y4)='',?y2,if(str(?y3)='',?y4,?y3)) as ?Year1 ).  }\n";
-                                   Query += "optional { ?EntityURI <http://purl.org/ontology/bibo/Image> ?Image .  }\n";
-                                   Query += "optional { ?EntityURI  <http://purl.org/dc/terms/provenance> ?provenance .\n";
-                                   Query += " ?provenance <http://purl.org/dc/terms/description> ?organization_des .}\n";
-                                   Query += "optional { ?EntityURI a ?Type1 . filter (str(?Type1) != 'http://xmlns.com/foaf/0.1/Agent' &&  str(?Type1) != 'http://purl.org/ontology/bibo/Document') .   } \n"
-                                   //Query += "optional { {?EntityURI a <http://purl.org/ontology/bibo/Article> .  bind(1 as ?Score4  ). } union { ?EntityURI a <http://purl.org/net/nknouf/ns/bibtex#Mastersthesis> .  bind(1 as ?Score4  ). }  } \n"
-
-                                   Query += "optional { ?EntityURI  <http://purl.org/dc/terms/creator> ?creator . ?creator <http://xmlns.com/foaf/0.1/name> ?nameCreator .}\n";
-                                   Query += "optional { ?EntityURI  <http://purl.org/dc/terms/issued> ?issued. }\n";
-                                   Query += "optional { ?EntityURI  <http://purl.org/ontology/bibo/isbn> ?isbn .}\n";
-                                   Query += "optional { ?EntityURI  <http://purl.org/dc/terms/language> ?languaje. }\n";
-
-                                   Query += " ?EntityURI a <" + Class_ + "> \n";
-                                   Query += '} ';//group by ?Endpoint ?EntityURI ?EntityClass ?EntityLabel ?Property ?PropertyLabel ?PropertyValue ?Score1 ?Image  ?organization_des limit 50 \n';
-
-                                  }
-                                  break;
-                        }
-                        if (!EndpointLocal) {
-                            Query += '}\n';
-                        }
-                        Query += '}\n';
-                      //  console.log(Query);
+                        ClassIndxLs += '(<' + ResqLis[oneRes].indexProperties[oneProp] + '> \''+ResqLis[oneRes].indexPropertiesName[oneProp]+'\' )  ' ;
                     }
-                }
-                var source = {};
-                source.Name = ServiceName;
-                source.Endpoint = Service;
-                sources.push(source);
-
-            }
-          //  console.log("Hasta aqui");
-          //console.log(sources);
-            if (!_.isNull(Meteor.userId())) {
-                var rest = Meteor.call('savesearch', originTextSearch, sources, EntitySearch, function (error, result) {
-                    //console.log(result);
-                });
             }
 
-            Query += ' . filter(str(?EntityURI)!=\'\') . }  order by DESC(?Score)  \n  ' + ResultLimit+' ';
+            //Query += "  { \n";
+            //Query += "    select ?EntityURI ?Property ?PropertyLabel ?PropertyValue {\n";  
+            Query += "      values (?Property ?PropertyLabel) {\n";
+            Query +=            ClassIndxLs + "\n";
+            Query += "      } .\n";
+            Query += "      (?EntityURI ?Score ?PropertyValue) text:query (?Property '("+TextSearch+")' 1000) .\n";
+            //Query += "    } group by ?EntityURI ?Property ?PropertyLabel ?PropertyValue order by desc(max(?Score)) \n";
+            //Query += "  } .\n";
+            Query += "  values (?EntityClass ?EntityLabelProp) {\n";
+            Query +=        ClassLs+"\n";
+            Query += "  } .\n";
+            Query += "  ?EntityURI a ?EntityClass .\n";
+            Query += "  ?EntityURI ?EntityLabelProp ?EntityLabel.\n";
+            Query += "  optional { ?EntityURI <http://purl.org/dc/terms/language> ?Lang .   } \n";
+            Query += "  optional { ?EntityURI <http://purl.org/dc/terms/issued>  ?Year .}\n";
+            Query += "  optional { ?EntityURI <http://purl.org/ontology/bibo/Image> ?Image .  }\n";
+            Query += "  optional { ?EntityURI  <http://purl.org/dc/terms/provenance> ?provenance .\n";
+            Query += "           ?provenance <http://purl.org/dc/terms/description> ?organization_des .}\n";
+            Query += "  optional { ?EntityURI  <http://purl.org/dc/terms/creator> ?creator . ?creator <http://xmlns.com/foaf/0.1/name> ?nameCreator .}\n";
+            Query += "  optional { ?EntityURI  <http://purl.org/dc/terms/issued> ?issued. }\n";
+            Query += "  optional { ?EntityURI  <http://purl.org/ontology/bibo/isbn> ?isbn .}\n";
+            Query += "  optional { ?EntityURI  <http://purl.org/dc/terms/language> ?languaje. } .\n";
+            Query += "  bind (1 as ?Score1 ) . \n";
+            Query += "  bind ('UCUENCA' AS ?Endpoint) .\n";
+            //Query += "  bind (1 as ?Score ) .\n";
+            Query += "  bind (?EntityClass as ?Type ) . \n";
+
+            
+
+            Query += "}" ;
+
+            //var source = {};
+            //source.Name = ServiceName;
+            //source.Endpoint = Service;
+            //sources.push(source);
+            //if (!_.isNull(Meteor.userId())) {
+            //    var rest = Meteor.call('savesearch', originTextSearch, sources, EntitySearch, function (error, result) {
+            //        //console.log(result);
+            //    });
+            //}
+
             var jsonRequest = {"sparql": Query, "validateQuery": false, "MainVar": "EntityURI", "ApplyFilter": AppFilt};
-            //console.log(jsonRequest);
             Session.set('jsonRequest', jsonRequest);
             App.SearchRun(0, 1);
-            //Session.set('Qmode', 1);
         });
 
 
